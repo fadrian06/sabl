@@ -4,6 +4,7 @@ use SABL\Controladores\ControladorDeCrearCuenta;
 use SABL\Controladores\ControladorDeEstudiantes;
 use SABL\Controladores\ControladorDeIngreso;
 use SABL\Controladores\ControladorDeMaterias;
+use SABL\Controladores\ControladorDeNiveles;
 use SABL\Controladores\ControladorDePerfil;
 use SABL\Controladores\ControladorDePeriodos;
 use SABL\Controladores\ControladorDeProfesores;
@@ -121,6 +122,27 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
       app()->get('/editar', [ControladorDeRepresentantes::class, 'mostrarFormularioDeEdicion']);
       app()->post('/', [ControladorDeRepresentantes::class, 'actualizar']);
     });
+  });
+
+  app()->group('/niveles', static function (): void {
+    app()->get('/', [ControladorDeNiveles::class, 'mostrarListado']);
+    app()->post('/', [ControladorDeNiveles::class, 'registrar']);
+    app()->get('/aperturar', [ControladorDeNiveles::class, 'mostrarFormularioDeRegistro']);
+    app()->group('/{id}', static function (): void {
+      app()->get('/eliminar', [ControladorDeNiveles::class, 'eliminar']);
+      app()->get('/editar', [ControladorDeNiveles::class, 'mostrarFormularioDeEdicion']);
+      app()->post('/', [ControladorDeNiveles::class, 'actualizar']);
+      app()->group('/secciones', static function (): void {
+        app()->get('/aperturar', [ControladorDeNiveles::class, 'mostrarFormularioDeRegistroDeSeccion']);
+        app()->post('/', [ControladorDeNiveles::class, 'registrarSeccion']);
+      });
+    });
+  });
+
+  app()->group('/secciones/{id}', static function (): void {
+    app()->get('/editar', [ControladorDeNiveles::class, 'mostrarFormularioDeEdicionDeSeccion']);
+    app()->post('/', [ControladorDeNiveles::class, 'actualizarSeccion']);
+    app()->get('/eliminar', [ControladorDeNiveles::class, 'eliminarSeccion']);
   });
 
   app()->group('/profesores', static function (): void {
