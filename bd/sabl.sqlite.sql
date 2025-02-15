@@ -6,12 +6,66 @@ drop table if exists estudiante;
 drop table if exists inscripción;
 drop table if exists materias;
 drop table if exists momento;
-drop table if exists nivel_estudio;
-drop table if exists periodo;
 drop table if exists profesor;
 drop table if exists representante;
 drop table if exists sección;
 drop table if exists seguridad;
+drop table if exists nivel_estudio;
+drop table if exists periodo;
+
+CREATE TABLE profesor (
+  Id_Prof integer primary key autoincrement,
+  Ced_Prof varchar(50) NOT NULL,
+  Nom_Prof varchar(50) NOT NULL,
+  Apell_Prof varchar(50) NOT NULL,
+  Fec_Nac date NOT NULL,
+  Codigo_Carg_Prof varchar(50) NOT NULL,
+  Codigo_Domina varchar(50) NOT NULL,
+  Fec_Incres_T_Minis date NOT NULL,
+  Email_Prof varchar(50) NOT NULL,
+  Telf_Prof bigint(50) NOT NULL,
+  Fec_Registro date NOT NULL
+);
+
+CREATE TABLE periodo (
+  Id_Periodo integer primary key autoincrement,
+  Nom_Periodo varchar(50) NOT NULL,
+  Fec_Inicio varchar(50) NOT NULL,
+  Fec_fin varchar(50) NOT NULL,
+  Número_semanas varchar(50) NOT NULL,
+  Estad_Periodo varchar(50) NOT NULL,
+  Fec_Creación varchar(50) NOT NULL
+);
+
+CREATE TABLE materias (
+  Id_Mat integer primary key autoincrement,
+  Codigo_Mat varchar(20) NOT NULL,
+  Nom_Mat varchar(50) NOT NULL,
+  Descripción varchar(50) NOT NULL,
+  Estado_Mat varchar(50) NOT NULL,
+  Fec_Registro date NOT NULL,
+  Id_Periodo integer NOT NULL,
+
+  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
+);
+
+CREATE TABLE nivel_estudio (
+  Id_Nivel_estud integer primary key autoincrement,
+  Nom_Nivel_estd varchar(50) NOT NULL
+);
+
+CREATE TABLE sección (
+  Id_Seccion integer primary key autoincrement,
+  Nom_Seccion varchar(50) NOT NULL,
+  Estad_Seccion varchar(50) NOT NULL,
+  Fec_Creacion date NOT NULL,
+  Id_Nivel_estud integer NOT NULL,
+  Numero_matriculas varchar(50) NOT NULL,
+  Id_Periodo integer NOT NULL,
+
+  FOREIGN KEY (Id_Nivel_estud) REFERENCES nivel_estudio(Id_Nivel_estud),
+  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
+);
 
 CREATE TABLE asignacion (
   Id_asignacion integer primary key autoincrement,
@@ -28,6 +82,44 @@ CREATE TABLE asignacion (
   FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
 );
 
+CREATE TABLE momento (
+  Id_Momento integer primary key autoincrement,
+  Mes_inicio integer NOT NULL,
+  Dia_inicio integer NOT NULL,
+  Numero_Momento integer NOT NULL,
+  Id_Periodo integer NOT NULL,
+
+  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
+);
+
+CREATE TABLE representante (
+  Id_Repres integer primary key autoincrement,
+  Ced_Repres varchar(50) NOT NULL,
+  Apell_Repres varchar(50) NOT NULL,
+  Nom_Repres varchar(50) NOT NULL,
+  Fec_Nac date NOT NULL,
+  Luga_Nac varchar(50) NOT NULL,
+  Nacionalidad varchar(50) NOT NULL,
+  Dir_Exac varchar(50) NOT NULL,
+  Afin_con_Est varchar(50) NOT NULL,
+  Email_Repres varchar(50) NOT NULL,
+  Telf_Repres bigint(30) NOT NULL
+);
+
+CREATE TABLE estudiante (
+  Id_Est integer primary key autoincrement,
+  Ced_Est varchar(15) NOT NULL,
+  Apell_Est varchar(50) NOT NULL,
+  Nom_Est varchar(50) NOT NULL,
+  Fec_Nac date NOT NULL,
+  Luga_Nac varchar(50) NOT NULL,
+  Nacionalidad varchar(50) NOT NULL,
+  Dir_Exac varchar(50) NOT NULL,
+  Id_Repres integer NOT NULL,
+
+  FOREIGN KEY (Id_Repres) REFERENCES representante(Id_Repres)
+);
+
 CREATE TABLE boletines (
   Id_Boletin integer primary key autoincrement,
   Id_Momento integer NOT NULL,
@@ -37,6 +129,16 @@ CREATE TABLE boletines (
   FOREIGN KEY (Id_Momento) REFERENCES momento(Id_Momento),
   FOREIGN KEY (Id_Est) REFERENCES estudiante(Id_Est),
   FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
+);
+
+CREATE TABLE seguridad (
+  id integer primary key autoincrement,
+  Cedula varchar(30) NOT NULL,
+  Nombres varchar(50) NOT NULL,
+  Apellidos varchar(50) NOT NULL,
+  Usuario varchar(15) NOT NULL,
+  password varchar(100) NOT NULL,
+  Privilegio varchar(100) NOT NULL
 );
 
 CREATE TABLE calificaciones (
@@ -67,20 +169,6 @@ CREATE TABLE datos_socioeconómico (
   FOREIGN KEY (Id_Est) REFERENCES estudiante(Id_Est)
 );
 
-CREATE TABLE estudiante (
-  Id_Est integer primary key autoincrement,
-  Ced_Est varchar(15) NOT NULL,
-  Apell_Est varchar(50) NOT NULL,
-  Nom_Est varchar(50) NOT NULL,
-  Fec_Nac date NOT NULL,
-  Luga_Nac varchar(50) NOT NULL,
-  Nacionalidad varchar(50) NOT NULL,
-  Dir_Exac varchar(50) NOT NULL,
-  Id_Repres integer NOT NULL,
-
-  FOREIGN KEY (Id_Repres) REFERENCES representante(Id_Repres)
-);
-
 CREATE TABLE inscripción (
   Id_Inscrip integer primary key autoincrement,
   Codigo_Inscrip varchar(20) NOT NULL,
@@ -92,94 +180,6 @@ CREATE TABLE inscripción (
   FOREIGN KEY (Id_Est) REFERENCES estudiante(Id_Est),
   FOREIGN KEY (Id_Seccion) REFERENCES sección(Id_Seccion),
   FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
-);
-
-CREATE TABLE materias (
-  Id_Mat integer primary key autoincrement,
-  Codigo_Mat varchar(20) NOT NULL,
-  Nom_Mat varchar(50) NOT NULL,
-  Descripción varchar(50) NOT NULL,
-  Estado_Mat varchar(50) NOT NULL,
-  Fec_Registro date NOT NULL,
-  Id_Periodo integer NOT NULL,
-
-  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
-);
-
-CREATE TABLE momento (
-  Id_Momento integer primary key autoincrement,
-  Mes_inicio integer NOT NULL,
-  Dia_inicio integer NOT NULL,
-  Numero_Momento integer NOT NULL,
-  Id_Periodo integer NOT NULL,
-
-  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
-);
-
-CREATE TABLE nivel_estudio (
-  Id_Nivel_estud integer primary key autoincrement,
-  Nom_Nivel_estd varchar(50) NOT NULL
-);
-
-CREATE TABLE periodo (
-  Id_Periodo integer primary key autoincrement,
-  Nom_Periodo varchar(50) NOT NULL,
-  Fec_Inicio varchar(50) NOT NULL,
-  Fec_fin varchar(50) NOT NULL,
-  Número_semanas varchar(50) NOT NULL,
-  Estad_Periodo varchar(50) NOT NULL,
-  Fec_Creación varchar(50) NOT NULL
-);
-
-CREATE TABLE profesor (
-  Id_Prof integer primary key autoincrement,
-  Ced_Prof varchar(50) NOT NULL,
-  Nom_Prof varchar(50) NOT NULL,
-  Apell_Prof varchar(50) NOT NULL,
-  Fec_Nac date NOT NULL,
-  Codigo_Carg_Prof varchar(50) NOT NULL,
-  Codigo_Domina varchar(50) NOT NULL,
-  Fec_Incres_T_Minis date NOT NULL,
-  Email_Prof varchar(50) NOT NULL,
-  Telf_Prof bigint(50) NOT NULL,
-  Fec_Registro date NOT NULL
-);
-
-CREATE TABLE representante (
-  Id_Repres integer primary key autoincrement,
-  Ced_Repres varchar(50) NOT NULL,
-  Apell_Repres varchar(50) NOT NULL,
-  Nom_Repres varchar(50) NOT NULL,
-  Fec_Nac date NOT NULL,
-  Luga_Nac varchar(50) NOT NULL,
-  Nacionalidad varchar(50) NOT NULL,
-  Dir_Exac varchar(50) NOT NULL,
-  Afin_con_Est varchar(50) NOT NULL,
-  Email_Repres varchar(50) NOT NULL,
-  Telf_Repres bigint(30) NOT NULL
-);
-
-CREATE TABLE sección (
-  Id_Seccion integer primary key autoincrement,
-  Nom_Seccion varchar(50) NOT NULL,
-  Estad_Seccion varchar(50) NOT NULL,
-  Fec_Creacion date NOT NULL,
-  Id_Nivel_estud integer NOT NULL,
-  Numero_matriculas varchar(50) NOT NULL,
-  Id_Periodo integer NOT NULL,
-
-  FOREIGN KEY (Id_Nivel_estud) REFERENCES nivel_estudio(Id_Nivel_estud),
-  FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
-);
-
-CREATE TABLE seguridad (
-  id integer NOT NULL,
-  Cedula varchar(30) NOT NULL,
-  Nombres varchar(50) NOT NULL,
-  Apellidos varchar(50) NOT NULL,
-  Usuario varchar(15) NOT NULL,
-  password varchar(100) NOT NULL,
-  Privilegio varchar(100) NOT NULL
 );
 
 insert into periodo (Id_Periodo, Nom_Periodo, Fec_Inicio, Fec_fin, `Número_semanas`, Estad_Periodo, `Fec_Creación`)

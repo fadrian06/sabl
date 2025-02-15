@@ -48,6 +48,9 @@
       "npm run build",
       "composer i --no-dev",
       "composer archive"
+    ],
+    "post-install-cmd": [
+      "php -r \"if (!file_exists('.env')) copy('.env.dist', '.env');\""
     ]
   }
 }
