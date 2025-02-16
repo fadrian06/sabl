@@ -9,7 +9,6 @@ final class Usuario extends Model
   protected $table = 'seguridad';
 
   protected $fillable = [
-    'id',
     'Cedula',
     'Nombres',
     'Apellidos',

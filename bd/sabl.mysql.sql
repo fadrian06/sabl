@@ -1,9 +1,9 @@
+drop table if exists inscripción;
+drop table if exists calificaciones;
 drop table if exists asignacion;
 drop table if exists boletines;
-drop table if exists calificaciones;
 drop table if exists datos_socioeconómico;
 drop table if exists estudiante;
-drop table if exists inscripción;
 drop table if exists materias;
 drop table if exists momento;
 drop table if exists profesor;

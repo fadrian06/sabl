@@ -9,7 +9,7 @@ form()->message([
   'textonly' => '{Field} must contain only alphabets',
   'alphanum' => '{Field} must contain only alphabets and numbers',
   'alphadash' => '{Field} must contain only alphabets, numbers, dashes and underscores',
-  'username' => '{Field} must contain only alphabets, numbers and underscores',
+  'username' => '{Field} debe contener solo letras, números y guiones',
   'number' => '{Field} must contain only numbers',
   'numeric' => '{Field} must be numeric',
   'float' => '{Field} must contain only floating point numbers',
