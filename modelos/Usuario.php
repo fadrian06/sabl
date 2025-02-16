@@ -4,7 +4,8 @@ namespace SABL\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
 
-final class Usuario extends Model {
+final class Usuario extends Model
+{
   protected $table = 'seguridad';
 
   protected $fillable = [
@@ -19,7 +20,8 @@ final class Usuario extends Model {
 
   public $timestamps = false;
 
-  static function cantidadDeAdministradores(): int {
+  static function cantidadDeAdministradores(): int
+  {
     return self::query()->where('Privilegio', 'A')->count();
   }
 }
