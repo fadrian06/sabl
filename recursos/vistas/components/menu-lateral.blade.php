@@ -54,6 +54,24 @@
 
         <li class="nav-item">
           <a href="javascript:" class="nav-link">
+            <i class="nav-icon fas fa-list"></i>
+            <p>
+              Reportes
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="./reportes/constancia-estudio" class="nav-link">
+                <i class="far fa-check-circle nav-icon"></i>
+                <p>Constancia de estudio</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="javascript:" class="nav-link">
             <i class="nav-icon fas fa-address-book"></i>
             <p>
               Usuarios

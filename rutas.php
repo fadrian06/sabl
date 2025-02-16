@@ -8,6 +8,7 @@ use SABL\Controladores\ControladorDeNiveles;
 use SABL\Controladores\ControladorDePerfil;
 use SABL\Controladores\ControladorDePeriodos;
 use SABL\Controladores\ControladorDeProfesores;
+use SABL\Controladores\ControladorDeReportes;
 use SABL\Controladores\ControladorDeRepresentantes;
 use SABL\Controladores\ControladorDeUsuarios;
 
@@ -87,6 +88,13 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
     }
 
     response()->redirect('/restaurar');
+  });
+
+  app()->group('/reportes', static function (): void {
+    app()->group('/constancia-estudio', static function (): void {
+      app()->get('/', [ControladorDeReportes::class, 'mostrarFormularioDeConstanciaDeEstudio']);
+      app()->post('/', [ControladorDeReportes::class, 'generarConstanciaDeEstudio']);
+    });
   });
 
   app()->group('/', ['middleware' => 'only-admins', static function (): void {
