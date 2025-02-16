@@ -29,9 +29,14 @@ final readonly class ControladorDeReportes extends Controlador
     $periodo = Periodo::find($datos['id_periodo']);
 
     Blade::renderizar(
-      "paginas/reportes/constancia-estudio/planilla",
+      'paginas/reportes/constancia-estudio/planilla',
       compact('datos', 'estudiante', 'nivel', 'periodo')
     );
+  }
+
+  static function mostrarNotasCertificadas(): void
+  {
+    Blade::renderizar('paginas/reportes/notas-certificadas');
   }
 
   private static function validaciones(): array

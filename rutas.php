@@ -95,6 +95,8 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
       app()->get('/', [ControladorDeReportes::class, 'mostrarFormularioDeConstanciaDeEstudio']);
       app()->post('/', [ControladorDeReportes::class, 'generarConstanciaDeEstudio']);
     });
+
+    app()->get('/notas-certificadas', [ControladorDeReportes::class, 'mostrarNotasCertificadas']);
   });
 
   app()->group('/', ['middleware' => 'only-admins', static function (): void {
