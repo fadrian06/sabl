@@ -16,7 +16,7 @@ auth()->config('db.table', 'seguridad');
 date_default_timezone_set($_ENV['TIMEZONE']);
 Date::setLocale($_ENV['LOCALE']);
 
-$container = new Container;
+$container = Container::getInstance();
 $container->singleton(PDO::class, static fn(): PDO => db()->connection());
 $manager = new Manager;
 
