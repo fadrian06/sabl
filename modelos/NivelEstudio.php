@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +32,6 @@ final class NivelEstudio extends Model
 
   function __toString(): string
   {
-    return $this->Nom_Nivel_estd;
+    return (string) $this->Nom_Nivel_estd;
   }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -37,7 +39,7 @@ final readonly class ControladorDeMaterias extends Controlador
     (new Materia([
       'Id_Mat' => $ultimoId + 1,
       'Codigo_Mat' => $datos['codigo'],
-      'Nom_Mat' => str_replace('  ', ' ', mb_convert_case($datos['nombre'], MB_CASE_TITLE)),
+      'Nom_Mat' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombre'], MB_CASE_TITLE)),
       'Descripción' => str_replace('  ', ' ', mb_ucfirst($datos['descripcion'])),
       'Estado_Mat' => '',
       'Fec_Registro' => date('Y-m-d'),
@@ -68,7 +70,7 @@ final readonly class ControladorDeMaterias extends Controlador
 
     $materia = Materia::query()->find($id);
     $materia->Codigo_Mat = $datos['codigo'];
-    $materia->Nom_Mat = str_replace('  ', ' ', mb_convert_case($datos['nombre'], MB_CASE_TITLE));
+    $materia->Nom_Mat = str_replace('  ', ' ', mb_convert_case((string) $datos['nombre'], MB_CASE_TITLE));
     $materia->Descripción = str_replace('  ', ' ', mb_ucfirst($datos['descripcion']));
     $materia->save();
     response()->redirect('/materias');

@@ -1,3 +1,7 @@
+declare(strict_types=1);
+
+declare(strict_types=1);
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">

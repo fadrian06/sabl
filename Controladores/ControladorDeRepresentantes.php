@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -36,13 +38,13 @@ final readonly class ControladorDeRepresentantes extends Controlador
     (new Representante([
       'Id_Repres' => $ultimoId + 1,
       'Ced_Repres' => $datos['cedula'],
-      'Nom_Repres' => str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE)),
-      'Apell_Est' => str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE)),
+      'Nom_Repres' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE)),
+      'Apell_Est' => str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE)),
       'Fec_Nac' => $datos['fechaNacimiento'],
-      'Luga_Nac' => str_replace('  ', ' ', mb_convert_case($datos['lugarNacimiento'], MB_CASE_TITLE)),
+      'Luga_Nac' => str_replace('  ', ' ', mb_convert_case((string) $datos['lugarNacimiento'], MB_CASE_TITLE)),
       'Nacionalidad' => $datos['nacionalidad'],
-      'Dir_Exac' => str_replace('  ', ' ', mb_convert_case($datos['direccion'], MB_CASE_TITLE)),
-      'Afin_con_Est' => str_replace('  ', ' ', mb_convert_case($datos['afinidadConEstudiante'], MB_CASE_TITLE)),
+      'Dir_Exac' => str_replace('  ', ' ', mb_convert_case((string) $datos['direccion'], MB_CASE_TITLE)),
+      'Afin_con_Est' => str_replace('  ', ' ', mb_convert_case((string) $datos['afinidadConEstudiante'], MB_CASE_TITLE)),
       'Email_Repres' => $datos['correo'],
       'Telf_Repres' => $datos['telefono']
     ]))->save();
@@ -72,12 +74,12 @@ final readonly class ControladorDeRepresentantes extends Controlador
     $representante = Representante::query()->find($id);
     $representante->Nacionalidad = $datos['nacionalidad'];
     $representante->Ced_Repres = $datos['cedula'];
-    $representante->Nom_Repres = str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE));
-    $representante->Apell_Repres = str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE));
+    $representante->Nom_Repres = str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE));
+    $representante->Apell_Repres = str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE));
     $representante->Fec_Nac = $datos['fechaNacimiento'];
-    $representante->Luga_Nac = str_replace('  ', ' ', mb_convert_case($datos['lugarNacimiento'], MB_CASE_TITLE));
-    $representante->Dir_Exac = str_replace('  ', ' ', mb_convert_case($datos['direccion'], MB_CASE_TITLE));
-    $representante->Afin_con_Est = str_replace('  ', ' ', mb_convert_case($datos['afinidadConEstudiante'], MB_CASE_TITLE));
+    $representante->Luga_Nac = str_replace('  ', ' ', mb_convert_case((string) $datos['lugarNacimiento'], MB_CASE_TITLE));
+    $representante->Dir_Exac = str_replace('  ', ' ', mb_convert_case((string) $datos['direccion'], MB_CASE_TITLE));
+    $representante->Afin_con_Est = str_replace('  ', ' ', mb_convert_case((string) $datos['afinidadConEstudiante'], MB_CASE_TITLE));
     $representante->Email_Repres = $datos['correo'];
     $representante->Telf_Repres = $datos['telefono'];
     $representante->save();

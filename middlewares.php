@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use SABL\Modelos\Usuario;
 
 auth()->middleware('auth.required', static function (): void {

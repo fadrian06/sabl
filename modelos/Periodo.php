@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Modelos;
 
 use DateTimeInterface;
@@ -34,6 +36,6 @@ final class Periodo extends Model
 
   function __toString(): string
   {
-    return $this->Nom_Periodo;
+    return (string) $this->Nom_Periodo;
   }
 }

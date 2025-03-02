@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -36,12 +38,12 @@ final readonly class ControladorDeEstudiantes extends Controlador
     (new Estudiante([
       'Id_Est' => $ultimoId + 1,
       'Ced_Est' => $datos['cedula'],
-      'Nom_Est' => str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE)),
-      'Apell_Est' => str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE)),
+      'Nom_Est' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE)),
+      'Apell_Est' => str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE)),
       'Fec_Nac' => $datos['fechaNacimiento'],
-      'Luga_Nac' => str_replace('  ', ' ', mb_convert_case($datos['lugarNacimiento'], MB_CASE_TITLE)),
+      'Luga_Nac' => str_replace('  ', ' ', mb_convert_case((string) $datos['lugarNacimiento'], MB_CASE_TITLE)),
       'Nacionalidad' => $datos['nacionalidad'],
-      'Dir_Exac' => str_replace('  ', ' ', mb_convert_case($datos['direccion'], MB_CASE_TITLE)),
+      'Dir_Exac' => str_replace('  ', ' ', mb_convert_case((string) $datos['direccion'], MB_CASE_TITLE)),
       'Id_Repres' => $datos['idRepresentante']
     ]))->save();
 
@@ -70,11 +72,11 @@ final readonly class ControladorDeEstudiantes extends Controlador
     $estudiante = Estudiante::query()->find($id);
     $estudiante->Nacionalidad = $datos['nacionalidad'];
     $estudiante->Ced_Est = $datos['cedula'];
-    $estudiante->Nom_Est = str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE));
-    $estudiante->Apell_Est = str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE));
+    $estudiante->Nom_Est = str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE));
+    $estudiante->Apell_Est = str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE));
     $estudiante->Fec_Nac = $datos['fechaNacimiento'];
-    $estudiante->Luga_Nac = str_replace('  ', ' ', mb_convert_case($datos['lugarNacimiento'], MB_CASE_TITLE));
-    $estudiante->Dir_Exac = str_replace('  ', ' ', mb_convert_case($datos['direccion'], MB_CASE_TITLE));
+    $estudiante->Luga_Nac = str_replace('  ', ' ', mb_convert_case((string) $datos['lugarNacimiento'], MB_CASE_TITLE));
+    $estudiante->Dir_Exac = str_replace('  ', ' ', mb_convert_case((string) $datos['direccion'], MB_CASE_TITLE));
     $estudiante->Id_Repres = $datos['idRepresentante'];
     $estudiante->save();
     response()->redirect('/estudiantes');

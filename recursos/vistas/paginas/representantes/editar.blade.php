@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 
 $datos = flash()->display('datos');
@@ -152,3 +157,4 @@ $afinidades = [
     <button class="btn btn-primary">Actualizar representante</button>
   </form>
 </x-plantillas.inicio>
+<?php 

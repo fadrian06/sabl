@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 
 $datos = flash()->display('datos');
@@ -73,3 +78,4 @@ $usuario = auth()->user();
     <button class="btn btn-primary">Actualizar secretario</button>
   </form>
 </x-plantillas.inicio>
+<?php 

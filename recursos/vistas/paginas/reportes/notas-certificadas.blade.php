@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 $factorCrecimientoImagen = 1;
 @endphp
@@ -832,3 +837,4 @@ $factorCrecimientoImagen = 1;
     </div>
   </div>
 </x-plantillas.reportes>
+<?php 

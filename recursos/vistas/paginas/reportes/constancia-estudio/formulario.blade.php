@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 
 $fecha = new Jenssegers\Date\Date;
@@ -171,3 +176,4 @@ $fecha = new Jenssegers\Date\Date;
     <button class="btn btn-primary btn-lg w-100">Generar PDF</button>
   </form>
 </x-plantillas.inicio>
+<?php 

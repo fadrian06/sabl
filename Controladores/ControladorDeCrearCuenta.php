@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -20,8 +22,8 @@ final readonly class ControladorDeCrearCuenta extends Controlador
 
     auth()->register([
       'Cedula' => $datos['cedula'],
-      'Nombres' => str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE)),
-      'Apellidos' => str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE)),
+      'Nombres' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE)),
+      'Apellidos' => str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE)),
       'Usuario' => $datos['usuario'],
       'password' => $datos['clave'],
       'Privilegio' => 'A'

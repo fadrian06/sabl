@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use SABL\Controladores\ControladorDeCrearCuenta;
 use SABL\Controladores\ControladorDeEstudiantes;
 use SABL\Controladores\ControladorDeIngreso;
@@ -13,13 +15,13 @@ use SABL\Controladores\ControladorDeRepresentantes;
 use SABL\Controladores\ControladorDeUsuarios;
 
 app()->group('/ingreso', ['middleware' => 'auth.guest', static function (): void {
-  app()->get('/', [ControladorDeIngreso::class, 'mostrarIngreso']);
-  app()->post('/', [ControladorDeIngreso::class, 'comprobarCredenciales']);
+  app()->get('/', ControladorDeIngreso::mostrarIngreso(...));
+  app()->post('/', ControladorDeIngreso::comprobarCredenciales(...));
 }]);
 
 app()->group('/crear-cuenta', ['middleware' => 'admin.only-one', static function (): void {
-  app()->get('/', [ControladorDeCrearCuenta::class, 'mostrarFormulario']);
-  app()->post('/', [ControladorDeCrearCuenta::class, 'guardarCuentaDeAdministrador']);
+  app()->get('/', ControladorDeCrearCuenta::mostrarFormulario(...));
+  app()->post('/', ControladorDeCrearCuenta::guardarCuentaDeAdministrador(...));
 }]);
 
 app()->group('/', ['middleware' => 'auth.required', static function (): void {
@@ -31,7 +33,7 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
   });
 
   app()->get('/respaldar', static function (): void {
-    if (mb_strtolower($_ENV['DB_CONNECTION']) === 'mysql') {
+    if (mb_strtolower((string) $_ENV['DB_CONNECTION']) === 'mysql') {
       $nombreRespaldo = 'respaldo-' . date('Y-m-d-H-i-s') . '.sql';
       $ruta = __DIR__ . "/almacenamiento/respaldos/$nombreRespaldo";
 
@@ -43,7 +45,7 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
 
   app()->group('/restaurar', static function (): void {
     app()->get('/', static function (): void {
-      if (mb_strtolower($_ENV['DB_CONNECTION']) === 'mysql') {
+      if (mb_strtolower((string) $_ENV['DB_CONNECTION']) === 'mysql') {
         Blade::renderizar('paginas.respaldar.mysql', [
           'rutasArchivos' => glob(__DIR__ . '/almacenamiento/respaldos/*.sql')
         ]);
@@ -92,104 +94,104 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
 
   app()->group('/reportes', static function (): void {
     app()->group('/constancia-estudio', static function (): void {
-      app()->get('/', [ControladorDeReportes::class, 'mostrarFormularioDeConstanciaDeEstudio']);
-      app()->post('/', [ControladorDeReportes::class, 'generarConstanciaDeEstudio']);
+      app()->get('/', ControladorDeReportes::mostrarFormularioDeConstanciaDeEstudio(...));
+      app()->post('/', ControladorDeReportes::generarConstanciaDeEstudio(...));
     });
 
-    app()->get('/notas-certificadas', [ControladorDeReportes::class, 'mostrarNotasCertificadas']);
+    app()->get('/notas-certificadas', ControladorDeReportes::mostrarNotasCertificadas(...));
   });
 
   app()->group('/', ['middleware' => 'only-admins', static function (): void {
     app()->group('/usuarios', static function (): void {
-      app()->get('/', [ControladorDeUsuarios::class, 'mostrarSecretarios']);
-      app()->post('/', [ControladorDeUsuarios::class, 'registrarSecretario']);
-      app()->get('/registrar', [ControladorDeUsuarios::class, 'mostrarFormularioDeRegistro']);
+      app()->get('/', ControladorDeUsuarios::mostrarSecretarios(...));
+      app()->post('/', ControladorDeUsuarios::registrarSecretario(...));
+      app()->get('/registrar', ControladorDeUsuarios::mostrarFormularioDeRegistro(...));
       app()->group('/{id}', static function (): void {
-        app()->get('/eliminar', [ControladorDeUsuarios::class, 'eliminarSecretario']);
-        app()->get('/editar', [ControladorDeUsuarios::class, 'mostrarFormularioDeEdicion']);
-        app()->post('/', [ControladorDeUsuarios::class, 'actualizarSecretario']);
+        app()->get('/eliminar', ControladorDeUsuarios::eliminarSecretario(...));
+        app()->get('/editar', ControladorDeUsuarios::mostrarFormularioDeEdicion(...));
+        app()->post('/', ControladorDeUsuarios::actualizarSecretario(...));
       });
     });
   }]);
 
   app()->group('/estudiantes', static function (): void {
-    app()->get('/', [ControladorDeEstudiantes::class, 'mostrarListado']);
-    app()->post('/', [ControladorDeEstudiantes::class, 'registrar']);
-    app()->get('/registrar', [ControladorDeEstudiantes::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDeEstudiantes::mostrarListado(...));
+    app()->post('/', ControladorDeEstudiantes::registrar(...));
+    app()->get('/registrar', ControladorDeEstudiantes::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDeEstudiantes::class, 'eliminar']);
-      app()->get('/editar', [ControladorDeEstudiantes::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDeEstudiantes::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDeEstudiantes::eliminar(...));
+      app()->get('/editar', ControladorDeEstudiantes::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeEstudiantes::actualizar(...));
     });
   });
 
   app()->group('/representantes', static function (): void {
-    app()->get('/', [ControladorDeRepresentantes::class, 'mostrarListado']);
-    app()->post('/', [ControladorDeRepresentantes::class, 'registrar']);
-    app()->get('/registrar', [ControladorDeRepresentantes::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDeRepresentantes::mostrarListado(...));
+    app()->post('/', ControladorDeRepresentantes::registrar(...));
+    app()->get('/registrar', ControladorDeRepresentantes::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDeRepresentantes::class, 'eliminar']);
-      app()->get('/editar', [ControladorDeRepresentantes::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDeRepresentantes::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDeRepresentantes::eliminar(...));
+      app()->get('/editar', ControladorDeRepresentantes::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeRepresentantes::actualizar(...));
     });
   });
 
   app()->group('/niveles', static function (): void {
-    app()->get('/', [ControladorDeNiveles::class, 'mostrarListado']);
-    app()->post('/', [ControladorDeNiveles::class, 'registrar']);
-    app()->get('/aperturar', [ControladorDeNiveles::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDeNiveles::mostrarListado(...));
+    app()->post('/', ControladorDeNiveles::registrar(...));
+    app()->get('/aperturar', ControladorDeNiveles::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDeNiveles::class, 'eliminar']);
-      app()->get('/editar', [ControladorDeNiveles::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDeNiveles::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDeNiveles::eliminar(...));
+      app()->get('/editar', ControladorDeNiveles::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeNiveles::actualizar(...));
       app()->group('/secciones', static function (): void {
-        app()->get('/aperturar', [ControladorDeNiveles::class, 'mostrarFormularioDeRegistroDeSeccion']);
-        app()->post('/', [ControladorDeNiveles::class, 'registrarSeccion']);
+        app()->get('/aperturar', ControladorDeNiveles::mostrarFormularioDeRegistroDeSeccion(...));
+        app()->post('/', ControladorDeNiveles::registrarSeccion(...));
       });
     });
   });
 
   app()->group('/secciones/{id}', static function (): void {
-    app()->get('/editar', [ControladorDeNiveles::class, 'mostrarFormularioDeEdicionDeSeccion']);
-    app()->post('/', [ControladorDeNiveles::class, 'actualizarSeccion']);
-    app()->get('/eliminar', [ControladorDeNiveles::class, 'eliminarSeccion']);
+    app()->get('/editar', ControladorDeNiveles::mostrarFormularioDeEdicionDeSeccion(...));
+    app()->post('/', ControladorDeNiveles::actualizarSeccion(...));
+    app()->get('/eliminar', ControladorDeNiveles::eliminarSeccion(...));
   });
 
   app()->group('/profesores', static function (): void {
-    app()->get('/', [ControladorDeProfesores::class, 'mostrarListado']);
-    app()->post('/', [ControladorDeProfesores::class, 'registrar']);
-    app()->get('/registrar', [ControladorDeProfesores::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDeProfesores::mostrarListado(...));
+    app()->post('/', ControladorDeProfesores::registrar(...));
+    app()->get('/registrar', ControladorDeProfesores::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDeProfesores::class, 'eliminar']);
-      app()->get('/editar', [ControladorDeProfesores::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDeProfesores::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDeProfesores::eliminar(...));
+      app()->get('/editar', ControladorDeProfesores::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeProfesores::actualizar(...));
     });
   });
 
   app()->group('/periodos', static function (): void {
-    app()->get('/', [ControladorDePeriodos::class, 'mostrarListado']);
-    app()->post('/', [ControladorDePeriodos::class, 'registrar']);
-    app()->get('/aperturar', [ControladorDePeriodos::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDePeriodos::mostrarListado(...));
+    app()->post('/', ControladorDePeriodos::registrar(...));
+    app()->get('/aperturar', ControladorDePeriodos::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDePeriodos::class, 'eliminar']);
-      app()->get('/editar', [ControladorDePeriodos::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDePeriodos::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDePeriodos::eliminar(...));
+      app()->get('/editar', ControladorDePeriodos::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDePeriodos::actualizar(...));
     });
   });
 
   app()->group('/materias', static function (): void {
-    app()->get('/', [ControladorDeMaterias::class, 'mostrarListado']);
-    app()->post('/', [ControladorDeMaterias::class, 'registrar']);
-    app()->get('/aperturar', [ControladorDeMaterias::class, 'mostrarFormularioDeRegistro']);
+    app()->get('/', ControladorDeMaterias::mostrarListado(...));
+    app()->post('/', ControladorDeMaterias::registrar(...));
+    app()->get('/aperturar', ControladorDeMaterias::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
-      app()->get('/eliminar', [ControladorDeMaterias::class, 'eliminar']);
-      app()->get('/editar', [ControladorDeMaterias::class, 'mostrarFormularioDeEdicion']);
-      app()->post('/', [ControladorDeMaterias::class, 'actualizar']);
+      app()->get('/eliminar', ControladorDeMaterias::eliminar(...));
+      app()->get('/editar', ControladorDeMaterias::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeMaterias::actualizar(...));
     });
   });
 
   app()->group('/perfil', static function (): void {
-    app()->get('/editar', [ControladorDePerfil::class, 'mostrarFormularioDeEdicion']);
-    app()->post('/', [ControladorDePerfil::class, 'actualizarPerfil']);
+    app()->get('/editar', ControladorDePerfil::mostrarFormularioDeEdicion(...));
+    app()->post('/', ControladorDePerfil::actualizarPerfil(...));
   });
 }]);

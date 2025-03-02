@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 form()->message([
   'required' => '{Field} es un campo requerido',
   'email' => '{Field} must be a valid email address',

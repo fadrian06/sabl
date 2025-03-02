@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Capsule\Manager;
 use Jenssegers\Date\Date;
 use Symfony\Component\Dotenv\Dotenv;

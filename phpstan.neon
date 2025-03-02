@@ -1,0 +1,16 @@
+includes:
+  - vendor/phpstan/phpstan/conf/bleedingEdge.neon
+
+parameters:
+  level: 0
+  paths:
+    - Controladores
+    - modelos
+    - recursos/vistas
+    - Blade.php
+    - configuraciones.php
+    - index.php
+    - middlewares.php
+    - rector.php
+    - rutas.php
+    - validaciones.php

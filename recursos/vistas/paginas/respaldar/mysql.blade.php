@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 if (!function_exists('obtenerFecha')) {
   function obtenerFecha(string $rutaArchivo): string {
@@ -58,3 +63,4 @@ if (!function_exists('obtenerFecha')) {
     </table>
   </div>
 </x-plantillas.inicio>
+<?php 

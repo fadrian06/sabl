@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="./" class="brand-link text-wrap d-flex align-items-center text-center">
@@ -161,3 +166,4 @@
     </nav>
   </div>
 </aside>
+<?php 

@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <!doctype html>
 <html>
 
@@ -18,3 +23,4 @@
   </body>
 
 </html>
+<?php 

@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @php
 
 $fecha = new Jenssegers\Date\Date;
@@ -84,3 +89,4 @@ $fecha = new Jenssegers\Date\Date;
 
   <script>print()</script>
 </x-plantillas.reportes>
+<?php 

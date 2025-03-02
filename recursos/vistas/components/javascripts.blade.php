@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <!-- jQuery -->
 <script src="./librerias/jquery/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -25,3 +30,4 @@
 <!-- AdminLTE App -->
 <script src="./librerias/adminlte3/dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<?php 

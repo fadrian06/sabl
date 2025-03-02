@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -36,8 +38,8 @@ final readonly class ControladorDeProfesores extends Controlador
     (new Profesor([
       'Id_Prof' => $ultimoId + 1,
       'Ced_Prof' => $datos['cedula'],
-      'Nom_Prof' => str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE)),
-      'Apell_Prof' => str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE)),
+      'Nom_Prof' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE)),
+      'Apell_Prof' => str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE)),
       'Codigo_Carg_Prof' => $datos['codigoCarga'],
       'Codigo_Domina' => $datos['codigoNomina'],
       'Fec_Incres_T_Minis' => $datos['fechaIngresoMinisterio'],
@@ -71,8 +73,8 @@ final readonly class ControladorDeProfesores extends Controlador
 
     $profesor = Profesor::query()->find($id);
     $profesor->Ced_Prof = $datos['cedula'];
-    $profesor->Nom_Prof = str_replace('  ', ' ', mb_convert_case($datos['nombres'], MB_CASE_TITLE));
-    $profesor->Apell_Prof = str_replace('  ', ' ', mb_convert_case($datos['apellidos'], MB_CASE_TITLE));
+    $profesor->Nom_Prof = str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE));
+    $profesor->Apell_Prof = str_replace('  ', ' ', mb_convert_case((string) $datos['apellidos'], MB_CASE_TITLE));
     $profesor->Fec_Nac = $datos['fechaNacimiento'];
     $profesor->Codigo_Carg_Prof = $datos['codigoCarga'];
     $profesor->Codigo_Domina = $datos['codigoNomina'];

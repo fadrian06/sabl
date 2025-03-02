@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Container\Container as ContainerContainer;
 use Illuminate\Contracts\Foundation\Application as ApplicationContract;
 use Illuminate\Contracts\View\Factory as ViewFactory;
@@ -13,11 +15,11 @@ final class Container extends ContainerContainer
 
   function getNamespace(): string
   {
-    return __NAMESPACE__;
+    return '';
   }
 }
 
-final class Blade
+final readonly class Blade
 {
   private static function getInstance(): LeafBlade
   {

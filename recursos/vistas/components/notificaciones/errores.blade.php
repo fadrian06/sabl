@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 @if (session()->get('leaf.flash'))
   <script>
     document.addEventListener('DOMContentLoaded', () => {
@@ -14,3 +19,4 @@
     })
   </script>
 @endif
+<?php 

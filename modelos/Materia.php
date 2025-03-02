@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,6 @@ final class Materia extends Model
 
   function __toString(): string
   {
-    return $this->Nom_Mat;
+    return (string) $this->Nom_Mat;
   }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Controladores;
 
 use Blade;
@@ -79,7 +81,7 @@ final readonly class ControladorDeNiveles extends Controlador
     $nivel = NivelEstudio::with('secciones')->find($id);
 
     $nivel->secciones()->create([
-      'Nom_Seccion' => strtoupper($datos['nombre']),
+      'Nom_Seccion' => strtoupper((string) $datos['nombre']),
       'Estad_Seccion' => 'activo',
       'Fec_Creacion' => date('Y-m-d-H-i-s'),
       'Numero_matriculas' => (int) $datos['matriculas'],
@@ -106,7 +108,7 @@ final readonly class ControladorDeNiveles extends Controlador
     self::enviarErroresDeValidacionSiExisten("/secciones/$id/editar");
 
     $seccion = Seccion::find($id);
-    $seccion->Nom_Seccion = strtoupper($datos['nombre']);
+    $seccion->Nom_Seccion = strtoupper((string) $datos['nombre']);
     $seccion->Numero_matriculas = (int) $datos['matriculas'];
     $seccion->save();
 

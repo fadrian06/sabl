@@ -1,3 +1,8 @@
+<?php
+
+declare(strict_types=1);
+
+?>
 <x-plantillas.ingreso titulo="Ingreso">
   <div class="container-form">
     <div class="information">
@@ -44,3 +49,4 @@
     </div>
   </div>
 </x-plantillas.ingreso>
+<?php 

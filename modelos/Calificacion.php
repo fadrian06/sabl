@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SABL\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +35,6 @@ final class Calificacion extends Model
 
   function __toString(): string
   {
-    return $this->Calif_obtenid;
+    return (string) $this->Calif_obtenid;
   }
 }
