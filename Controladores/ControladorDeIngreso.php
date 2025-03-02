@@ -27,6 +27,8 @@ final readonly class ControladorDeIngreso extends Controlador
       'password' => $credenciales['clave']
     ]);
 
+    session()->set('id_plantel', 1);
+
     self::enviarErroresDeAutenticacionSiExisten('/ingreso');
     response()->redirect('/');
   }

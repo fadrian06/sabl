@@ -6,6 +6,7 @@ namespace SABL\Controladores;
 
 use Blade;
 use SABL\Modelos\Estudiante;
+use SABL\Modelos\Plantel;
 
 final readonly class ControladorDeEstudiantes extends Controlador
 {
@@ -35,7 +36,9 @@ final readonly class ControladorDeEstudiantes extends Controlador
       ->limit(1)
       ->column();
 
-    (new Estudiante([
+    $plantel = Plantel::query()->findOrFail(session()->get('id_plantel'));
+
+    $plantel->estudiantes()->create([
       'Id_Est' => $ultimoId + 1,
       'Ced_Est' => $datos['cedula'],
       'Nom_Est' => str_replace('  ', ' ', mb_convert_case((string) $datos['nombres'], MB_CASE_TITLE)),
@@ -45,7 +48,7 @@ final readonly class ControladorDeEstudiantes extends Controlador
       'Nacionalidad' => $datos['nacionalidad'],
       'Dir_Exac' => str_replace('  ', ' ', mb_convert_case((string) $datos['direccion'], MB_CASE_TITLE)),
       'Id_Repres' => $datos['idRepresentante']
-    ]))->save();
+    ]);
 
     response()->redirect('/estudiantes');
   }
@@ -82,7 +85,8 @@ final readonly class ControladorDeEstudiantes extends Controlador
     response()->redirect('/estudiantes');
   }
 
-  private static function obtenerDatosValidados(array $datosSinValidar): ?array {
+  private static function obtenerDatosValidados(array $datosSinValidar): ?array
+  {
     return form()->validate($datosSinValidar, [
       'cedula' => 'number|min:1',
       'nombres' => 'names',

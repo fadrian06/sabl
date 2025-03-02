@@ -7,6 +7,7 @@ namespace SABL\Modelos;
 use DateTimeInterface;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Jenssegers\Date\Date;
 
@@ -36,6 +37,16 @@ final class Estudiante extends Model
   function representante(): BelongsTo
   {
     return $this->belongsTo(Representante::class, 'Id_Repres', 'Id_Repres');
+  }
+
+  function planteles(): BelongsToMany
+  {
+    return $this->belongsToMany(
+      Plantel::class,
+      'planteles_cursados',
+      'id_estudiante',
+      'id_plantel'
+    );
   }
 
   protected function getFechaNacimientoAttribute(): DateTimeInterface

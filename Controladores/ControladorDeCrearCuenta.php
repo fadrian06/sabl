@@ -34,6 +34,8 @@ final readonly class ControladorDeCrearCuenta extends Controlador
       'password' => $datos['clave']
     ]);
 
+    session()->set('id_plantel', 1);
+
     response()->redirect('/');
   }
 

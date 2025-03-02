@@ -8,6 +8,7 @@ use Blade;
 use SABL\Modelos\Estudiante;
 use SABL\Modelos\NivelEstudio;
 use SABL\Modelos\Periodo;
+use SABL\Modelos\Plantel;
 
 final readonly class ControladorDeReportes extends Controlador
 {
@@ -36,9 +37,18 @@ final readonly class ControladorDeReportes extends Controlador
     );
   }
 
-  static function mostrarNotasCertificadas(): void
+  static function mostrarFormularioDeNotasCertificadas(): void
   {
-    Blade::renderizar('paginas/reportes/notas-certificadas');
+    Blade::renderizar('paginas/reportes/notas-certificadas/formulario', [
+      'plantel' => Plantel::query()->findOrFail(session()->get('id_plantel')),
+      'estudiantes' => Estudiante::with('planteles')->get()
+    ]);
+  }
+
+  static function generarNotasCertificadas(): void {
+    Blade::renderizar('paginas/reportes/notas-certificadas/planilla', [
+      'plantel' => Plantel::query()->findOrFail(session()->get('id_plantel'))
+    ]);
   }
 
   private static function validaciones(): array

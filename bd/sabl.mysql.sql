@@ -3,6 +3,7 @@ drop table if exists calificaciones;
 drop table if exists asignacion;
 drop table if exists boletines;
 drop table if exists datos_socioeconómico;
+drop table if exists planteles_cursados;
 drop table if exists estudiante;
 drop table if exists materias;
 drop table if exists momento;
@@ -12,6 +13,20 @@ drop table if exists sección;
 drop table if exists seguridad;
 drop table if exists nivel_estudio;
 drop table if exists periodo;
+drop table if exists planteles;
+
+CREATE TABLE planteles (
+  id integer primary key auto_increment,
+  codigo varchar(255) not null unique check (length(codigo) > 0),
+  nombre_corto varchar(255) unique check (length(nombre_corto) > 0),
+  nombre_largo varchar(255) not null unique check (length(nombre_largo) > 0),
+  direccion varchar(255) not null unique check (length(direccion) > 0),
+  telefono varchar(255) not null unique check (telefono like '+% %-%'),
+  zona_educativa varchar(255) not null check (length(zona_educativa) > 0),
+  entidad_federal varchar(255) not null check (length(entidad_federal) > 0),
+  municipio varchar(255) not null check (length(municipio) > 0),
+  localidad varchar(255) not null check (length(localidad) > 0)
+);
 
 CREATE TABLE profesor (
   Id_Prof integer primary key auto_increment,
@@ -120,6 +135,14 @@ CREATE TABLE estudiante (
   FOREIGN KEY (Id_Repres) REFERENCES representante(Id_Repres)
 );
 
+CREATE TABLE planteles_cursados (
+  id_plantel integer not null,
+  id_estudiante integer not null,
+
+  foreign key (id_plantel) references planteles(id),
+  foreign key (id_estudiante) references estudiante(Id_Est)
+);
+
 CREATE TABLE boletines (
   Id_Boletin integer primary key auto_increment,
   Id_Momento integer NOT NULL,
@@ -180,6 +203,30 @@ CREATE TABLE inscripción (
   FOREIGN KEY (Id_Est) REFERENCES estudiante(Id_Est),
   FOREIGN KEY (Id_Seccion) REFERENCES sección(Id_Seccion),
   FOREIGN KEY (Id_Periodo) REFERENCES periodo(Id_Periodo)
+);
+
+insert into planteles (
+  id,
+  codigo,
+  nombre_corto,
+  nombre_largo,
+  direccion,
+  telefono,
+  zona_educativa,
+  entidad_federal,
+  municipio,
+  localidad
+) values (
+  1,
+  'OD06392320',
+  'U.E.BOL. SILVESTRE BRAVO',
+  'U.E.N. BOLIV. "SILVESTRE ANTONIO BRAVO LÓPEZ"',
+  'La Chiquinquirá, carretera principal via a Santa Mária',
+  '+58 424-7255781',
+  'Zulia',
+  'Zulia',
+  'Sucre',
+  'LA CHIQUINQUIRÁ'
 );
 
 insert into periodo (Id_Periodo, Nom_Periodo, Fec_Inicio, Fec_fin, `Número_semanas`, Estad_Periodo, `Fec_Creación`)

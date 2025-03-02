@@ -13,6 +13,13 @@ use SABL\Controladores\ControladorDeProfesores;
 use SABL\Controladores\ControladorDeReportes;
 use SABL\Controladores\ControladorDeRepresentantes;
 use SABL\Controladores\ControladorDeUsuarios;
+use SABL\Modelos\Plantel;
+
+app()->group('/api', static function (): void {
+  app()->get('/planteles', static function (): void {
+    response()->json(Plantel::all());
+  });
+});
 
 app()->group('/ingreso', ['middleware' => 'auth.guest', static function (): void {
   app()->get('/', ControladorDeIngreso::mostrarIngreso(...));
@@ -98,7 +105,10 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
       app()->post('/', ControladorDeReportes::generarConstanciaDeEstudio(...));
     });
 
-    app()->get('/notas-certificadas', ControladorDeReportes::mostrarNotasCertificadas(...));
+    app()->group('/notas-certificadas', static function (): void {
+      app()->get('/', ControladorDeReportes::mostrarFormularioDeNotasCertificadas(...));
+      app()->post('/', ControladorDeReportes::generarNotasCertificadas(...));
+    });
   });
 
   app()->group('/', ['middleware' => 'only-admins', static function (): void {
