@@ -67,6 +67,12 @@
                 <p>Constancia de estudio</p>
               </a>
             </li>
+            <li class="nav-item">
+              <a href="./reportes/notas-certificadas" class="nav-link">
+                <i class="far fa-check-circle nav-icon"></i>
+                <p>Notas certificadas</p>
+              </a>
+            </li>
           </ul>
         </li>
 

@@ -15,7 +15,7 @@ $factorCrecimientoImagen = 1;
 
   <div
     class="px-5 min-vh-100"
-    style="font-size: .5rem; display: grid; place-content: center">
+    style="font-size: .575rem; display: grid; place-content: center">
     <table class="table table-sm table-bordered align-middle">
       <tr>
         <td rowspan="4" class="text-center align-middle">
