@@ -1,18 +1,18 @@
 {
   "require": {
     "php": "^8.2",
-    "illuminate/view": "^9.52",
-    "leafs/blade": "^2.0",
-    "ramsey/uuid": "^4.7",
-    "leafs/auth": "^4.0",
-    "symfony/dotenv": "^7.2",
-    "leafs/leaf": "^3.12",
     "illuminate/container": "^9.52",
     "illuminate/database": "^9.52",
-    "leafs/db": "^4.0",
+    "illuminate/view": "^9.52",
     "jenssegers/date": "^4.0",
+    "leafs/auth": "^4.0",
+    "leafs/blade": "^2.0",
+    "leafs/db": "^4.0",
     "leafs/form": "^3.2",
-    "leafs/session": "^2.3"
+    "leafs/leaf": "^3.12",
+    "leafs/session": "^2.3",
+    "ramsey/uuid": "^4.7",
+    "symfony/dotenv": "^7.2"
   },
   "autoload": {
     "psr-4": {
@@ -52,5 +52,8 @@
     "post-install-cmd": [
       "php -r \"if (!file_exists('.env')) copy('.env.dist', '.env');\""
     ]
+  },
+  "config": {
+    "sort-packages": true
   }
 }
