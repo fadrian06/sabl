@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
 
 $datos = flash()->display('datos');
@@ -89,4 +84,3 @@ $datos = flash()->display('datos');
     </div>
   </div>
 </x-plantillas.ingreso>
-<?php 

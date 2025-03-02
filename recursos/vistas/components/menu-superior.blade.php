@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
   <ul class="navbar-nav">
@@ -105,4 +100,3 @@ declare(strict_types=1);
     </li>
   </ul>
 </nav>
-<?php 

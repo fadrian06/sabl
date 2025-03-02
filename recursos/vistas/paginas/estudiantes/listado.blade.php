@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <x-plantillas.inicio titulo="Listado de estudiantes">
   <div class="col-md-12">
     <div class="card card-outline card-primary">
@@ -73,4 +68,3 @@ declare(strict_types=1);
     </div>
   </div>
 </x-plantillas.inicio>
-<?php 

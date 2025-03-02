@@ -1,10 +1,7 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
+
 $factorCrecimientoImagen = 1;
+
 @endphp
 
 <x-plantillas.reportes titulo="Notas certificadas">
@@ -837,4 +834,3 @@ $factorCrecimientoImagen = 1;
     </div>
   </div>
 </x-plantillas.reportes>
-<?php 

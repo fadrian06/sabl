@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
 
 $datos = flash()->display('datos');
@@ -22,7 +17,7 @@ $datos = flash()->display('datos');
         <option
           value="{{ $nacionalidad }}"
           class="text-capitalize"
-          @selected(@$datos['nacionalidad'] === $nacionalidad)>
+          @selected(@$datos['nacionalidad']===$nacionalidad)>
           {{ $nacionalidad }}
         </option>
         @endforeach
@@ -100,11 +95,11 @@ $datos = flash()->display('datos');
       <select name="idRepresentante" required class="form-control">
         <option value="">Representante</option>
         @foreach (SABL\Modelos\Representante::all() as $representante)
-          <option
-            value="{{ $representante->Id_Repres }}"
-            @selected(@$datos['idRepresentante'] === $representante->Id_Repres)>
-            {{ $representante }}
-          </option>
+        <option
+          value="{{ $representante->Id_Repres }}"
+          @selected(@$datos['idRepresentante']===$representante->Id_Repres)>
+          {{ $representante }}
+        </option>
         @endforeach
       </select>
     </label>
@@ -112,4 +107,3 @@ $datos = flash()->display('datos');
     <button class="btn btn-primary">Registrar estudiante</button>
   </form>
 </x-plantillas.inicio>
-<?php 

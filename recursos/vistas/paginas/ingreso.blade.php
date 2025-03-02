@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <x-plantillas.ingreso titulo="Ingreso">
   <div class="container-form">
     <div class="information">
@@ -18,10 +13,10 @@ declare(strict_types=1);
         <p>U.E.B."Silvestre A. Bravo L."</p>
 
         @if (SABL\Modelos\Usuario::cantidadDeAdministradores() === 0)
-          <div style="margin-block: 1rem">
-            ¿No tienes cuenta?
-            <a href="./crear-cuenta">Crea una</a>
-          </div>
+        <div style="margin-block: 1rem">
+          ¿No tienes cuenta?
+          <a href="./crear-cuenta">Crea una</a>
+        </div>
         @endif
 
         <form class="form" method="post">
@@ -49,4 +44,3 @@ declare(strict_types=1);
     </div>
   </div>
 </x-plantillas.ingreso>
-<?php 

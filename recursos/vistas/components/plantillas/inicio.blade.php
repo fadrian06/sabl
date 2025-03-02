@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <!DOCTYPE html>
 <html>
   <x-head titulo="{{ $titulo }}" />
@@ -32,4 +27,3 @@ declare(strict_types=1);
   </body>
 
 </html>
-<?php 

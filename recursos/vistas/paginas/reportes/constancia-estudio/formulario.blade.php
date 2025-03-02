@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
 
 $fecha = new Jenssegers\Date\Date;
@@ -35,24 +30,24 @@ $fecha = new Jenssegers\Date\Date;
 
       <p class="d-inline-block">
         Quien suscribe,
-        <div class="input-group d-inline-block w-auto">
-          <select
-            name="subscribe[nivel]"
-            class="form-control form-control-border bg-transparent w-auto d-inline-block"
-            required>
-            <option>Lcdo.</option>
-            <option>Lcda.</option>
-            <option>Prof.</option>
-            <option>T.S.U.</option>
-            <option>Ing.</option>
-            <option>Mag.</option>
-          </select>
-          <input
-            name="subscribe[nombre]"
-            class="form-control form-control-border bg-transparent w-auto d-inline-block"
-            required />
-        </div>
-        , titular de la cédula de identidad:
+      <div class="input-group d-inline-block w-auto">
+        <select
+          name="subscribe[nivel]"
+          class="form-control form-control-border bg-transparent w-auto d-inline-block"
+          required>
+          <option>Lcdo.</option>
+          <option>Lcda.</option>
+          <option>Prof.</option>
+          <option>T.S.U.</option>
+          <option>Ing.</option>
+          <option>Mag.</option>
+        </select>
+        <input
+          name="subscribe[nombre]"
+          class="form-control form-control-border bg-transparent w-auto d-inline-block"
+          required />
+      </div>
+      , titular de la cédula de identidad:
       <div class="input-group d-inline-block w-auto">
         <select
           name="subscribe[nacionalidad]"
@@ -176,4 +171,3 @@ $fecha = new Jenssegers\Date\Date;
     <button class="btn btn-primary btn-lg w-100">Generar PDF</button>
   </form>
 </x-plantillas.inicio>
-<?php 

@@ -1,17 +1,14 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
-if (!function_exists('obtenerFecha')) {
-  function obtenerFecha(string $rutaArchivo): string {
-    $rutaArchivo = str_replace(['respaldo-', '.sql'], '', $rutaArchivo);
-    $fecha = DateTimeImmutable::createFromFormat('Y-m-d-H-i-s', $rutaArchivo);
 
-    return (new Jenssegers\Date\Date($fecha))->ago();
-  }
+if (!function_exists('obtenerFecha')) {
+function obtenerFecha(string $rutaArchivo): string {
+$rutaArchivo = str_replace(['respaldo-', '.sql'], '', $rutaArchivo);
+$fecha = DateTimeImmutable::createFromFormat('Y-m-d-H-i-s', $rutaArchivo);
+
+return (new Jenssegers\Date\Date($fecha))->ago();
 }
+}
+
 @endphp
 
 <x-plantillas.inicio titulo="Restaurar base de datos">
@@ -63,4 +60,3 @@ if (!function_exists('obtenerFecha')) {
     </table>
   </div>
 </x-plantillas.inicio>
-<?php 

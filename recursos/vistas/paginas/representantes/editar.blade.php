@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 @php
 
 $datos = flash()->display('datos');
@@ -36,8 +31,8 @@ $afinidades = [
           value="{{ $nacionalidad }}"
           class="text-capitalize"
           @selected(
-            @$datos['nacionalidad']===$nacionalidad
-            || $representante->Nacionalidad === $nacionalidad
+          @$datos['nacionalidad']===$nacionalidad
+          || $representante->Nacionalidad === $nacionalidad
           )>
           {{ $nacionalidad }}
         </option>
@@ -145,8 +140,8 @@ $afinidades = [
         @foreach ($afinidades as $afinidad)
         <option
           @selected(
-            @$datos['afinidadConEstudiante']===$afinidad
-            || $representante->Afin_con_Est === $afinidad
+          @$datos['afinidadConEstudiante']===$afinidad
+          || $representante->Afin_con_Est === $afinidad
           )>
           {{ $afinidad }}
         </option>
@@ -157,4 +152,3 @@ $afinidades = [
     <button class="btn btn-primary">Actualizar representante</button>
   </form>
 </x-plantillas.inicio>
-<?php 

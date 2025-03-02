@@ -1,8 +1,3 @@
-<?php
-
-declare(strict_types=1);
-
-?>
 <x-plantillas.inicio titulo="Listado de representantes">
   <div class="col-md-12">
     <div class="card card-outline card-primary">
@@ -72,11 +67,11 @@ declare(strict_types=1);
                     <i class="fas fa-pencil-alt"></i>
                   </a>
                   @if ($representante->puedeSerEliminado())
-                    <a
-                      href="./representantes/{{ $representante->Id_Repres }}/eliminar"
-                      class="btn btn-danger">
-                      <i class="fa fa-trash"></i>
-                    </a>
+                  <a
+                    href="./representantes/{{ $representante->Id_Repres }}/eliminar"
+                    class="btn btn-danger">
+                    <i class="fa fa-trash"></i>
+                  </a>
                   @endif
                 </td>
               </tr>
@@ -88,4 +83,3 @@ declare(strict_types=1);
     </div>
   </div>
 </x-plantillas.inicio>
-<?php 

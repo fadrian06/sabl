@@ -9,7 +9,6 @@ return RectorConfig::configure()
   ->withPaths([
     __DIR__ . '/Controladores',
     __DIR__ . '/modelos',
-    __DIR__ . '/recursos/vistas',
     __DIR__ . '/*.php',
   ])
   ->withPhpSets(php82: true)
