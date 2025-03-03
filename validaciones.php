@@ -70,3 +70,9 @@ form()->rule(
   '/^[a-zA-ZñÑáéíóúÁÉÍÓÚ\s]+$/',
   '{Field} debe contener solo letras y espacios'
 );
+
+form()->rule(
+  'nationality',
+  '/^(V|E)$/',
+  '{Field} debe ser "V" o "E"'
+);
