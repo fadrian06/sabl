@@ -226,7 +226,9 @@ create table inscripciones (
 
 create table calificaciones (
   id integer primary key autoincrement,
-  numero integer not null check (numero >= 0 and numero <= 20),
+  numero integer check (numero >= 0 and numero <= 20),
+  literal varchar(1) check (literal in ('A', 'B', 'C', 'D', 'E', 'F')),
+  inasistencias integer not null check (inasistencias >= 0),
   id_periodo integer not null,
   id_lapso integer not null,
   id_estudiante integer not null,
