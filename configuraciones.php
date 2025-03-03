@@ -8,6 +8,8 @@ use Leaf\Auth;
 use Symfony\Component\Dotenv\Dotenv;
 
 (new Dotenv)->load(__DIR__ . '/.env');
+$_ENV['DB_DATABASE'] = str_replace('%s', __DIR__, $_ENV['DB_DATABASE']);
+
 auth()->config('session', true);
 auth()->config('messages.loginParamsError', 'Usuario o contraseña incorrecta');
 auth()->config('messages.loginPasswordError', auth()->config('messages.loginParamsError'));
