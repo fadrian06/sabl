@@ -10,12 +10,7 @@ abstract readonly class Controlador
   protected static function enviarErroresDeValidacionSiExisten(string $urlParaRedirigir)
   {
     if (form()->errors()) {
-      response()
-        ->withFlash('errores', form()->errors())
-        ->withFlash('datos', request()->body())
-        ->redirect($urlParaRedirigir);
-
-      exit;
+      self::enviarErrores(form()->errors(), $urlParaRedirigir);
     }
   }
 
@@ -23,12 +18,19 @@ abstract readonly class Controlador
   protected static function enviarErroresDeAutenticacionSiExisten(string $urlParaRedirigir)
   {
     if (auth()->errors()) {
-      response()
-        ->withFlash('errores', auth()->errors())
-        ->withFlash('datos', request()->body())
-        ->redirect($urlParaRedirigir);
-
-      exit;
+      self::enviarErrores(auth()->errors(), $urlParaRedirigir);
     }
+  }
+
+  protected static function enviarErrores(
+    array $errores,
+    string $urlParaRedirigir
+  ): never {
+    response()
+      ->withFlash('errores', $errores)
+      ->withFlash('datos', request()->body())
+      ->redirect($urlParaRedirigir);
+
+    exit;
   }
 }
