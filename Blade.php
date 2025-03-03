@@ -45,4 +45,9 @@ final readonly class Blade
   {
     echo self::getInstance()->render($vista, $datos);
   }
+
+  static function capitalizar(string $texto): string
+  {
+    return mb_convert_case($texto, MB_CASE_TITLE);
+  }
 }
