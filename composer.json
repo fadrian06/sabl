@@ -1,16 +1,16 @@
 {
   "require": {
     "php": "^8.2",
-    "illuminate/container": "^9.52",
-    "illuminate/database": "^9.52",
-    "illuminate/view": "^9.52",
+    "illuminate/container": "^10.48",
+    "illuminate/database": "^10.48",
+    "illuminate/view": "^10.48",
     "jenssegers/date": "^4.0",
     "leafs/auth": "^4.0",
     "leafs/blade": "^2.0",
     "leafs/db": "^4.0",
     "leafs/form": "^3.2",
-    "leafs/leaf": "^3.12",
-    "leafs/session": "^2.3",
+    "leafs/leaf": "^4.1",
+    "leafs/session": "^4.0",
     "ramsey/uuid": "^4.7",
     "symfony/dotenv": "^7.2"
   },
