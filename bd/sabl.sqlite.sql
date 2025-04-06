@@ -1,5 +1,6 @@
 drop table if exists calificaciones;
 drop table if exists inscripciones;
+drop table if exists asignacion_secciones;
 drop table if exists asignacion_guias;
 drop table if exists usuarios;
 drop table if exists asignacion_areas;
@@ -19,6 +20,12 @@ drop table if exists municipios;
 drop table if exists estados;
 drop table if exists paises;
 drop table if exists planes_estudio;
+drop table if exists niveles_estudio;
+
+create table niveles_estudio (
+  id integer primary key autoincrement,
+  nombre varchar(255) not null unique check (length(nombre) > 0)
+);
 
 create table planes_estudio (
   id integer primary key autoincrement,
@@ -187,6 +194,17 @@ create table asignacion_areas (
   foreign key (id_area) references areas(id)
 );
 
+create table asignacion_secciones (
+  id_periodo integer not null,
+  `id_año` integer not null,
+  id_seccion integer not null,
+
+  primary key (id_periodo, `id_año`, id_seccion),
+  foreign key (id_periodo) references periodos(id),
+  foreign key (`id_año`) references `años`(id),
+  foreign key (id_seccion) references secciones(id)
+);
+
 create table usuarios (
   id integer primary key autoincrement,
   rol varchar(255) not null check (rol in ('Director', 'Secretario', 'Coordinador', 'Docente')),
@@ -196,8 +214,10 @@ create table usuarios (
   apellidos varchar(255) not null check (length(apellidos) > 0),
   clave varchar(255) not null unique check (length(clave) > 0),
   activado boolean not null,
+  id_nivel_estudio integer not null,
 
-  unique (nombres, apellidos)
+  unique (nombres, apellidos),
+  foreign key (id_nivel_estudio) references niveles_estudio(id)
 
   /* si rol = 'Docente' entonces activado por defecto será false */
 );
@@ -226,7 +246,7 @@ create table inscripciones (
 
 create table calificaciones (
   id integer primary key autoincrement,
-  numero integer check (numero >= 0 and numero <= 20),
+  definitiva integer check (definitiva >= 0 and definitiva <= 20),
   literal varchar(1) check (literal in ('A', 'B', 'C', 'D', 'E', 'F')),
   inasistencias integer not null check (inasistencias >= 0),
   id_periodo integer not null,
@@ -246,11 +266,19 @@ create table calificaciones (
   /* no permitir un id_area que tenga otras áreas asignadas (área de tipo categoría) */
 );
 
-insert into planes_estudio (id, nombre)
-values (1, 'Educación Media General');
+insert into niveles_estudio (id, nombre) values
+(1, 'Lcdo'),
+(2, 'Lcda'),
+(3, 'Prof'),
+(4, 'T.S.U'),
+(5, 'Ing'),
+(6, 'Mag');
 
-insert into paises (id, nombre)
-values (1, 'Venezuela');
+insert into planes_estudio (id, nombre) values
+(1, 'Educación Media General');
+
+insert into paises (id, nombre) values
+(1, 'Venezuela');
 
 insert into estados (id, nombre, tiene_zona_educativa, id_pais) values
 (1, 'Zulia', true, 1),
@@ -310,6 +338,13 @@ insert into lapsos (id, ordinal) values
 (1, 1),
 (2, 2),
 (3, 3);
+
+insert into asignacion_secciones (id_periodo, `id_año`, id_seccion) values
+(1, 1, 1),
+(1, 2, 1),
+(1, 3, 1),
+(1, 4, 1),
+(1, 5, 1);
 
 insert into asignacion_lapsos (id_periodo, id_lapso) values
 (1, 1),

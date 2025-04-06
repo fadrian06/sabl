@@ -2,6 +2,9 @@
 
 $fecha = new Jenssegers\Date\Date;
 
+$usuarioAutenticado = SABL\Modelos\Usuario::with('nivelEstudio')
+  ->findOrFail(auth()->id());
+
 @endphp
 
 <x-plantillas.inicio titulo="Constancia de estudio">
@@ -31,42 +34,35 @@ $fecha = new Jenssegers\Date\Date;
       <p class="d-inline-block">
         Quien suscribe,
       <div class="input-group d-inline-block w-auto">
-        <select
-          name="subscribe[nivel]"
-          class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required>
-          <option>Lcdo.</option>
-          <option>Lcda.</option>
-          <option>Prof.</option>
-          <option>T.S.U.</option>
-          <option>Ing.</option>
-          <option>Mag.</option>
-        </select>
         <input
-          name="subscribe[nombre]"
+          readonly
           class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required />
+          value="{{ $usuarioAutenticado->nivelEstudio }}." />
+        <input
+          readonly
+          class="form-control form-control-border bg-transparent w-auto d-inline-block"
+          value="{{ $usuarioAutenticado->nombreCompleto }}" />
       </div>
       , titular de la cédula de identidad:
       <div class="input-group d-inline-block w-auto">
-        <select
-          name="subscribe[nacionalidad]"
-          class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required>
-          <option>V</option>
-          <option>E</option>
-        </select>
         <input
-          type="number"
-          name="subscribe[cedula]"
+          readonly
           class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required />
+          value="{{ $usuarioAutenticado->nacionalidad }}" />
+        <input
+          readonly
+          class="form-control form-control-border bg-transparent w-auto d-inline-block"
+          value="{{ $usuarioAutenticado->cedula }}" />
       </div>
       , Directora de la U.E.B. "Silvestre Antonio Bravo López", por medio de la presente:
       </p>
     </section>
 
-    <section>
+    <section x-data='{
+      estudiantes: @json($estudiantes),
+      estudianteSeleccionado: {},
+      idEstudianteSeleccionado: undefined
+    }'>
       <h3 class="text-center text-uppercase font-weight-bold">
         HAGO CONSTAR
       </h3>
@@ -76,28 +72,25 @@ $fecha = new Jenssegers\Date\Date;
         <select
           name="estudiante[id]"
           class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required>
+          required
+          x-model="idEstudianteSeleccionado">
           <option value=""></option>
           @foreach ($estudiantes as $estudiante)
-          <option value="{{ $estudiante->Id_Est }}">
+          <option value="{{ $estudiante->id }}">
             {{ $estudiante }}
           </option>
           @endforeach
         </select>,
         portador de la cédula de identidad o escolar:
       <div class="input-group d-inline-block w-auto">
-        <select
-          name="estudiante[nacionalidad]"
-          class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required>
-          <option>V</option>
-          <option>E</option>
-        </select>
         <input
-          type="number"
-          name="estudiante[cedula]"
+          readonly
           class="form-control form-control-border bg-transparent w-auto d-inline-block"
-          required />
+          :value="estudianteSeleccionado?.nacionalidad" />
+        <input
+          readonly
+          class="form-control form-control-border bg-transparent w-auto d-inline-block"
+          :value="estudianteSeleccionado?.cedula" />
       </div>
       , natural de
       <select

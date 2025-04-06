@@ -10,9 +10,11 @@ use SABL\Modelos\Periodo;
 
 final readonly class ControladorDePeriodos extends Controlador
 {
+  use TieneValidaciones;
+
   static function mostrarListado(): void
   {
-    $periodos = Periodo::all();
+    $periodos = Periodo::with('lapsos')->get();
 
     Blade::renderizar(
       'paginas.periodos.listado',
@@ -41,9 +43,6 @@ final readonly class ControladorDePeriodos extends Controlador
       'Nom_Periodo' => (new DateTimeImmutable($datos['inicio']))->format('Y') . '-' . (new DateTimeImmutable($datos['fin']))->format('Y'),
       'Fec_Inicio' => $datos['inicio'],
       'Fec_fin' => $datos['fin'],
-      'Número_semanas' => intdiv((new DateTimeImmutable($datos['inicio']))
-        ->diff(new DateTimeImmutable($datos['fin']))
-        ->format('%a'), 7),
       'Estad_Periodo' => '',
       'Fec_Creación' => date('Y-m-d')
     ]))->save();
@@ -70,28 +69,16 @@ final readonly class ControladorDePeriodos extends Controlador
     $datos = self::obtenerDatosValidados(request()->body());
     self::enviarErroresDeValidacionSiExisten("/periodos/$id/editar");
 
-    $periodo = Periodo::query()->find($id);
-    $periodo->Nom_Periodo = (new DateTimeImmutable($datos['inicio']))->format('Y') . '-' . (new DateTimeImmutable($datos['fin']))->format('Y');
-    $periodo->Fec_Inicio = $datos['inicio'];
-    $periodo->Fec_fin = $datos['fin'];
-    $periodo->Número_semanas = intdiv((new DateTimeImmutable($datos['inicio']))
-      ->diff(new DateTimeImmutable($datos['fin']))
-      ->format('%a'), 7);
+    $periodo = Periodo::query()->findOrFail($id);
+    $periodo->año_inicio = $datos['año_inicio'];
     $periodo->save();
+
     response()->redirect('/periodos');
   }
 
-  private static function obtenerDatosValidados(array $datosSinValidar): ?array
-  {
-    $datosSinValidar = form()->validate($datosSinValidar, [
-      'inicio' => 'date',
-      'fin' => 'date'
-    ]) ?: null;
-
-    if (@$datosSinValidar['inicio'] >= @$datosSinValidar['fin']) {
-      form()->addError('fin', 'La fecha de fin debe ser posterior a la fecha de inicio.');
-    }
-
-    return $datosSinValidar;
+  private static function validaciones(): array {
+    return [
+      'año_inicio' => 'number|min:1'
+    ];
   }
 }

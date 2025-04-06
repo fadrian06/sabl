@@ -5,33 +5,19 @@ declare(strict_types=1);
 namespace SABL\Modelos;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property-read int $id
+ * @property string $nombre
+ */
 final class NivelEstudio extends Model
 {
-  protected $table = 'nivel_estudio';
-  protected $primaryKey = 'Id_Nivel_estud';
+  protected $table = 'niveles_estudio';
+  protected $fillable = ['nombre'];
   public $timestamps = false;
 
-  protected $fillable = ['Nom_Nivel_estd'];
-
-  function secciones(): HasMany
+  function __toString()
   {
-    return $this->hasMany(Seccion::class, 'Id_Nivel_estud', 'Id_Nivel_estud');
-  }
-
-  function puedeSerEliminado(): bool
-  {
-    return $this->secciones()->get()->count() === 0;
-  }
-
-  function getOrdinalAttribute(): int
-  {
-    return (int) $this->Nom_Nivel_estd;
-  }
-
-  function __toString(): string
-  {
-    return (string) $this->Nom_Nivel_estd;
+    return $this->nombre;
   }
 }

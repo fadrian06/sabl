@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace SABL\Controladores;
 
+use SABL\Enums\TipoNotificacion;
+
 abstract readonly class Controlador
 {
   /** @return void|never */
@@ -27,7 +29,7 @@ abstract readonly class Controlador
     string $urlParaRedirigir
   ): never {
     response()
-      ->withFlash('errores', $errores)
+      ->withFlash(TipoNotificacion::ERROR->name, $errores)
       ->withFlash('datos', request()->body())
       ->redirect($urlParaRedirigir);
 

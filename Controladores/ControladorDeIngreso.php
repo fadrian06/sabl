@@ -8,6 +8,8 @@ use Blade;
 
 final readonly class ControladorDeIngreso extends Controlador
 {
+  use TieneValidaciones;
+
   static function mostrarIngreso(): void
   {
     Blade::renderizar('paginas.ingreso');
@@ -15,21 +17,24 @@ final readonly class ControladorDeIngreso extends Controlador
 
   static function comprobarCredenciales(): void
   {
-    $credenciales = form()->validate(request()->body(), [
-      'usuario' => 'username',
-      'clave' => 'password'
-    ]);
-
+    $credenciales = self::obtenerDatosValidados(request()->body());
     self::enviarErroresDeValidacionSiExisten('/ingreso');
 
     auth()->login([
-      'usuario' => $credenciales['usuario'],
-      'password' => $credenciales['clave']
+      'cedula' => $credenciales['cedula'],
+      'clave' => $credenciales['clave']
     ]);
 
-    session()->set('id_plantel', 1);
-
     self::enviarErroresDeAutenticacionSiExisten('/ingreso');
+
+    session()->set('id_plantel', 1);
     response()->redirect('/');
+  }
+
+  private static function validaciones(): array {
+    return [
+      'cedula' => 'number|min:1',
+      'clave' => 'password'
+    ];
   }
 }

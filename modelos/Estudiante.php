@@ -4,42 +4,71 @@ declare(strict_types=1);
 
 namespace SABL\Modelos;
 
-use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Jenssegers\Date\Date;
 
+/**
+ * @property-read int $id
+ * @property 'V'|'E' $nacionalidad
+ * @property int $cedula
+ * @property string $fecha_nacimiento
+ * @property string $nombres
+ * @property string $apellidos
+ * @property string $direccion_exacta
+ * @property 'Casa'|'Quinta'|'Apartamento'|'Rancho' $tipo_vivienda
+ * @property 'Propia'|'Alquilada'|'Al cuido' $condicion_vivienda
+ * @property 'Buena'|'Regular'|'Mala' $condicion_infrastructura_vivienda
+ * @property ?string $tipo_beca
+ * @property bool $posee_canaima
+ * @property-read ?Localidad $localidadNacimiento
+ * @property-read ?Representante $representante
+ * @property-read ?Afinidad $afinidadRepresentante
+ * @property-read ?Collection<int, Plantel> $plantelesCursados
+ * @property-read ?Collection<int, Inscripcion> $inscripciones
+ * @property-read ?Collection<int, Calificacion> $calificaciones
+ */
 final class Estudiante extends Model
 {
-  protected $table = 'estudiante';
-  protected $primaryKey = 'Id_Est';
-  public $timestamps = false;
+  protected $table = 'estudiantes';
 
   protected $fillable = [
-    'Id_Est',
-    'Ced_Est',
-    'Nom_Est',
-    'Apell_Est',
-    'Fec_Nac',
-    'Luga_Nac',
-    'Nacionalidad',
-    'Dir_Exac',
-    'Id_Repres'
+    'nacionalidad',
+    'cedula',
+    'fecha_nacimiento',
+    'nombres',
+    'apellidos',
+    'direccion_exacta',
+    'tipo_vivienda',
+    'condicion_vivienda',
+    'condicion_infrastructura_vivienda',
+    'tipo_beca',
+    'posee_canaima',
+    'id_localidad_nacimiento',
+    'id_representante',
+    'id_afinidad_representante',
   ];
 
-  function boletines(): HasMany
+  public $timestamps = false;
+
+  function localidadNacimiento(): BelongsTo
   {
-    return $this->hasMany(Boletin::class, 'Id_Est', 'Id_Est');
+    return $this->belongsTo(Localidad::class, 'id_localidad_nacimiento');
   }
 
   function representante(): BelongsTo
   {
-    return $this->belongsTo(Representante::class, 'Id_Repres', 'Id_Repres');
+    return $this->belongsTo(Representante::class, 'id_representante');
   }
 
-  function planteles(): BelongsToMany
+  function afinidadRepresentante(): BelongsTo
+  {
+    return $this->belongsTo(Afinidad::class, 'id_afinidad_representante');
+  }
+
+  function plantelesCursados(): BelongsToMany
   {
     return $this->belongsToMany(
       Plantel::class,
@@ -49,13 +78,13 @@ final class Estudiante extends Model
     );
   }
 
-  protected function getFechaNacimientoAttribute(): DateTimeInterface
+  function inscripciones(): HasMany
   {
-    return new Date($this->Fec_Nac);
+    return $this->hasMany(Inscripcion::class, 'id_estudiante');
   }
 
-  function __toString(): string
+  function calificaciones(): HasMany
   {
-    return mb_convert_case("$this->Nom_Est $this->Apell_Est", MB_CASE_TITLE);
+    return $this->hasMany(Calificacion::class, 'id_estudiante');
   }
 }

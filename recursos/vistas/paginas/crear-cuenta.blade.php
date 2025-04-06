@@ -1,6 +1,7 @@
 @php
 
 $datos = flash()->display('datos');
+$nacionalidades = SABL\Enums\Nacionalidad::cases();
 
 @endphp
 
@@ -23,6 +24,19 @@ $datos = flash()->display('datos');
         </div>
 
         <form class="form" method="post">
+          <label>
+            <i class="bx bx-id-card"></i>
+            <select name="nacionalidad" required>
+              <option value="">Nacionalidad</option>
+              @foreach ($nacionalidades as $nacionalidad)
+              <option
+                @selected($nacionalidad->value === $datos['nacionalidad'] ?? '')
+                value="{{ $nacionalidad->value }}">
+                {{ Blade::capitalizar($nacionalidad->name) }}
+              </option>
+              @endforeach
+            </select>
+          </label>
           <label>
             <i class="bx bx-id-card"></i>
             <input
@@ -57,15 +71,6 @@ $datos = flash()->display('datos');
           </label>
 
           <label>
-            <i class="bx bx-user-circle"></i>
-            <input
-              name="usuario"
-              required
-              placeholder="Usuario"
-              value="{{ $datos['usuario'] ?? '' }}" />
-          </label>
-
-          <label>
             <i class="bx bx-lock"></i>
             <input
               type="password"
@@ -76,6 +81,15 @@ $datos = flash()->display('datos');
               pattern="(?=.*\d)(?=.*[A-ZÑ])(?=.*[a-zñ])(?=.*\W).{8,}"
               title="Al menos 8 caracteres (mínimo un dígito, una mayúscula, una minúscula y un símbolo)"
               value="{{ $datos['clave'] ?? '' }}" />
+          </label>
+          <label>
+            <i class="bx bx-id-card"></i>
+            <select name="nivel_estudio" required>
+              <option value="">Nivel de estudio</option>
+              @foreach ($nivelesEstudio as $nivelEstudio)
+              <option value="{{ $nivelEstudio->id }}">{{ $nivelEstudio }}</option>
+              @endforeach
+            </select>
           </label>
 
           <input type="submit" value="Crear cuenta" />

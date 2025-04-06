@@ -1,3 +1,9 @@
+@php
+
+$plantel = SABL\Modelos\Plantel::obtenerPlantelPrincipal();
+
+@endphp
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
   <!-- Brand Logo -->
   <a href="./" class="brand-link text-wrap d-flex align-items-center text-center">
@@ -5,7 +11,7 @@
       src="./imagenes/logo.png"
       class="brand-image img-circle elevation-3" />
     <span class="brand-text font-weight-light">
-      Silvester Antonio Bravo Lopéz
+      {{ $plantel->nombre_corto }}
     </span>
   </a>
 
@@ -21,7 +27,7 @@
           {{ auth()->user()->Nombres }} {{ auth()->user()->Apellidos }}
         </a>
         <small class="text-light">
-          {{ auth()->user()->Privilegio === 'A' ? 'Administrador' : 'Secretario' }}
+          {{ auth()->user()->rol }}
         </small>
       </div>
     </div>
@@ -129,7 +135,7 @@
         </li>
 
         <li class="nav-item">
-          <a href="/sistema/año_seccion x.php" class="nav-link">
+          <a href="./años" class="nav-link">
             <i class="nav-icon fas fa-book"></i>
             <p>
               Años y Secciones

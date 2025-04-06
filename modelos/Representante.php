@@ -4,51 +4,63 @@ declare(strict_types=1);
 
 namespace SABL\Modelos;
 
-use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Jenssegers\Date\Date;
 
+/**
+ * @property-read int $id
+ * @property 'V'|'E' $nacionalidad
+ * @property int $cedula
+ * @property string $fecha_nacimiento
+ * @property string $nombres
+ * @property string $apellidos
+ * @property string $direccion_exacta
+ * @property string $correo
+ * @property string $telefono_movil
+ * @property string $telefono_casa
+ * @property string $telefono_trabajo
+ * @property-read ?Localidad $localidadNacimiento
+ * @property-read ?Collection<int, Estudiante> $estudiantes
+ */
 final class Representante extends Model
 {
-  protected $table = 'representante';
-  protected $primaryKey = 'Id_Repres';
-  public $timestamps = false;
+  protected $table = 'representantes';
 
   protected $fillable = [
-    'Id_Repres',
-    'Ced_Repres',
-    'Apell_Repres',
-    'Nom_Repres',
-    'Fec_Nac',
-    'Luga_Nac',
-    'Nacionalidad',
-    'Dir_Exac',
-    'Afin_con_Est',
-    'Email_Repres',
-    'Telf_Repres'
+    'nacionalidad',
+    'cedula',
+    'fecha_nacimiento',
+    'nombres',
+    'apellidos',
+    'direccion_exacta',
+    'correo',
+    'telefono_movil',
+    'telefono_casa',
+    'telefono_trabajo',
+    'id_localidad_nacimiento'
   ];
+
+  public $timestamps = false;
+
+  function setNombresAttribute(string $nombres): void
+  {
+    $this->attributes['nombres'] = mb_convert_case($nombres, MB_CASE_TITLE);
+  }
+
+  function setApellidosAttribute(string $apellidos): void
+  {
+    $this->attributes['apellidos'] = mb_convert_case($apellidos, MB_CASE_TITLE);
+  }
+
+  function localidadNacimiento(): BelongsTo
+  {
+    return $this->belongsTo(Localidad::class, 'id_localidad_nacimiento');
+  }
 
   function estudiantes(): HasMany
   {
-    return $this->hasMany(Estudiante::class, 'Id_Repres', 'Id_Repres');
-  }
-
-  function puedeSerEliminado(): bool
-  {
-    return $this->estudiantes()->get()->count() === 0;
-  }
-
-  protected function getFechaNacimientoAttribute(): DateTimeInterface
-  {
-    return new Date($this->Fec_Nac);
-  }
-
-  function __toString(): string
-  {
-    return mb_convert_case(
-      "$this->Nom_Repres $this->Apell_Repres",
-      MB_CASE_TITLE
-    );
+    return $this->hasMany(Estudiante::class, 'id_representante');
   }
 }

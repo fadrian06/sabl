@@ -3,13 +3,13 @@
     <div class="card card-outline card-primary">
       <div class="card-header d-flex align-items-center justify-content-between">
         <h3 class="card-title">
-          Registra los estudiantes con sus datos especificos.
+          Inscribe los estudiantes con sus datos especificos.
         </h3>
 
         <div class="card-tools">
-          <a class="btn btn-info my-2" href="./estudiantes/registrar">
+          <a class="btn btn-info my-2" href="./estudiantes/inscribir">
             <i class="fa fa-plus-square"></i>
-            Registrar estudiante
+            Inscribir estudiante
           </a>
         </div>
       </div>

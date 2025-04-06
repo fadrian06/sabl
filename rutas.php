@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use SABL\Controladores\ControladorDeAños;
 use SABL\Controladores\ControladorDeCrearCuenta;
 use SABL\Controladores\ControladorDeEstudiantes;
 use SABL\Controladores\ControladorDeIngreso;
@@ -13,13 +14,6 @@ use SABL\Controladores\ControladorDeProfesores;
 use SABL\Controladores\ControladorDeReportes;
 use SABL\Controladores\ControladorDeRepresentantes;
 use SABL\Controladores\ControladorDeUsuarios;
-use SABL\Modelos\Plantel;
-
-app()->group('/api', static function (): void {
-  app()->get('/planteles', static function (): void {
-    response()->json(Plantel::all());
-  });
-});
 
 app()->group('/ingreso', ['middleware' => 'auth.guest', static function (): void {
   app()->get('/', ControladorDeIngreso::mostrarIngreso(...));
@@ -126,8 +120,8 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
 
   app()->group('/estudiantes', static function (): void {
     app()->get('/', ControladorDeEstudiantes::mostrarListado(...));
+    app()->get('/inscribir', ControladorDeEstudiantes::mostrarFormularioDeInscripcion(...));
     app()->post('/', ControladorDeEstudiantes::registrar(...));
-    app()->get('/registrar', ControladorDeEstudiantes::mostrarFormularioDeRegistro(...));
     app()->group('/{id}', static function (): void {
       app()->get('/eliminar', ControladorDeEstudiantes::eliminar(...));
       app()->get('/editar', ControladorDeEstudiantes::mostrarFormularioDeEdicion(...));
@@ -197,6 +191,14 @@ app()->group('/', ['middleware' => 'auth.required', static function (): void {
       app()->get('/eliminar', ControladorDeMaterias::eliminar(...));
       app()->get('/editar', ControladorDeMaterias::mostrarFormularioDeEdicion(...));
       app()->post('/', ControladorDeMaterias::actualizar(...));
+    });
+  });
+
+  app()->group('/años', static function (): void {
+    app()->get('/', ControladorDeAños::mostrarListado(...));
+    app()->group('/{id}', static function (): void {
+      app()->get('/editar', ControladorDeAños::mostrarFormularioDeEdicion(...));
+      app()->post('/', ControladorDeAños::actualizar(...));
     });
   });
 

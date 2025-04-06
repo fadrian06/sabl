@@ -19,27 +19,27 @@
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th></th>
                 <th>Período</th>
-                <th>Inicia</th>
-                <th>Termina</th>
-                <th># de semanas</th>
               </tr>
             </thead>
             <tbody>
               @foreach($periodos as $periodo)
               <tr>
+                <td>
+                  @if ($periodo->esActual)
+                  <span class="badge badge-success">Actual</span>
+                  @endif
+                </td>
                 <td>{{ $periodo }}</td>
-                <td>{{ $periodo->inicio->format('d \d\e M \d\e\l Y') }}</td>
-                <td>{{ $periodo->fin->format('d \d\e M \d\e\l Y') }}</td>
-                <td>{{ $periodo->Número_semanas }}</td>
                 <td class="btn-group">
                   <a
-                    href="./periodos/{{ $periodo->Id_Periodo }}/editar"
+                    href="./periodos/{{ $periodo->id }}/editar"
                     class="btn btn-primary">
                     <i class="fas fa-pencil-alt"></i>
                   </a>
                   <a
-                    href="./periodos/{{ $periodo->Id_Periodo }}/eliminar"
+                    href="./periodos/{{ $periodo->id }}/eliminar"
                     class="btn btn-danger">
                     <i class="fa fa-trash"></i>
                   </a>

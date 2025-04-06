@@ -1,8 +1,8 @@
 @if (session()->get('leaf.flash'))
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    let errores = `{{!! json_encode(flash()->display('errores')) !!}}`
-    let mensajes = `{{!! json_encode(flash()->display('mensajes')) !!}}`
+    let errores = `{{!! json_encode(flash()->display(SABL\Enums\TipoNotificacion::ERROR->name)) !!}}`
+    let mensajes = `{{!! json_encode(flash()->display(SABL\Enums\TipoNotificacion::EXITO->name)) !!}}`
 
     errores = errores.substring(1, errores.length - 1)
     errores = JSON.parse(errores) || {}

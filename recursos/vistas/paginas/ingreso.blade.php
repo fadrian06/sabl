@@ -12,7 +12,7 @@
         <h1>Iniciar sesión</h1>
         <p>U.E.B."Silvestre A. Bravo L."</p>
 
-        @if (SABL\Modelos\Usuario::cantidadDeAdministradores() === 0)
+        @if (!SABL\Modelos\Usuario::hayDirectores())
         <div style="margin-block: 1rem">
           ¿No tienes cuenta?
           <a href="./crear-cuenta">Crea una</a>
@@ -23,10 +23,12 @@
           <label>
             <i class="bx bx-user-circle"></i>
             <input
-              name="usuario"
-              placeholder="Usuario"
+              type="number"
+              name="cedula"
+              min="1"
+              placeholder="Cédula"
               required
-              value="{{ flash()->display('datos')['usuario'] ?? '' }}" />
+              value="{{ flash()->display('datos')['cedula'] ?? '' }}" />
           </label>
 
           <label>

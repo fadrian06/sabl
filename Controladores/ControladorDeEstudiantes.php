@@ -20,6 +20,13 @@ final readonly class ControladorDeEstudiantes extends Controlador
     );
   }
 
+  static function mostrarFormularioDeInscripcion(): void
+  {
+    Blade::renderizar('paginas.estudiantes.inscribir', [
+      'plantel' => Plantel::obtenerPlantelPrincipal()
+    ]);
+  }
+
   static function mostrarFormularioDeRegistro(): void
   {
     Blade::renderizar('paginas.estudiantes.registrar');

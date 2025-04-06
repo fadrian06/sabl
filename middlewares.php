@@ -17,9 +17,9 @@ auth()->middleware('auth.guest', static function (): void {
 });
 
 app()->registerMiddleware('admin.only-one', static function (): void {
-  if (Usuario::cantidadDeAdministradores() > 0) {
+  if (Usuario::hayDirectores()) {
     response()
-      ->withFlash('errores', ['Ya existe un administrador, no puedes crear otro'])
+      ->withFlash('errores', ['Ya existe un director, no puedes crear otro'])
       ->redirect('/ingreso');
   }
 });

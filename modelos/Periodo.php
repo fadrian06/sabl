@@ -4,38 +4,33 @@ declare(strict_types=1);
 
 namespace SABL\Modelos;
 
-use DateTimeInterface;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Jenssegers\Date\Date;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @property-read int $id
+ * @property int $año_inicio
+ * @property-read ?Collection<int, Inscripcion> $inscripciones
+ */
 final class Periodo extends Model
 {
-  protected $table = 'periodo';
-  protected $primaryKey = 'Id_Periodo';
+  protected $table = 'periodos';
+  protected $fillable = ['año_inicio'];
   public $timestamps = false;
 
-  protected $fillable = [
-    'Id_Periodo',
-    'Nom_Periodo',
-    'Fec_Inicio',
-    'Fec_fin',
-    'Número_semanas',
-    'Estad_Periodo',
-    'Fec_Creación',
-  ];
-
-  protected function getInicioAttribute(): DateTimeInterface
+  function inscripciones(): HasMany
   {
-    return new Date($this->Fec_Inicio);
+    return $this->hasMany(Inscripcion::class, 'id_periodo');
   }
 
-  protected function getFinAttribute(): DateTimeInterface
+  static function obtenerPeriodoActual(): ?self
   {
-    return new Date($this->Fec_Inicio);
+    return self::query()->where('año_inicio', date('Y'))->first();
   }
 
-  function __toString(): string
+  function __toString()
   {
-    return (string) $this->Nom_Periodo;
+    return $this->año_inicio . '-' . ($this->año_inicio + 1);
   }
 }
