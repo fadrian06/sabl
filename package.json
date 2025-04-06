@@ -1,8 +1,8 @@
 {
   "devDependencies": {
     "@biomejs/biome": "1.7.2",
-    "@fontsource-variable/montserrat": "^5.1.1",
-    "alpinejs": "^3.14.8",
+    "@fontsource-variable/montserrat": "^5.2.5",
+    "alpinejs": "^3.14.9",
     "boxicons": "^2.1.4",
     "esbuild": "0.21.5",
     "noty": "^3.1.4"
